@@ -1,0 +1,12 @@
+*.log
+*.txt
+*.ucdb
+*.vcd
+*.wlf
+*.dll
+*.vstf
+transcript
+work/
+.vscode/
+**/__pycache__/
+*.pyc
