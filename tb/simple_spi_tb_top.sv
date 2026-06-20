@@ -9,6 +9,7 @@ module simple_spi_tb_top #(
     logic rst;
 
     import uvm_pkg::*;
+    import tb_pkg::*;
 
     spi_interface      spi_if(clk, rst);
     wishbone_interface wb_if (clk, rst);
@@ -53,8 +54,7 @@ module simple_spi_tb_top #(
 
 		uvm_config_db #(virtual interface spi_interface)::set(null, "*", "spi_vif", spi_if);
 		uvm_config_db #(virtual interface wishbone_interface)::set(null, "*", "wb_vif", wb_if);
-        #200;
-        $finish();
+        run_test();
     end
 
 endmodule

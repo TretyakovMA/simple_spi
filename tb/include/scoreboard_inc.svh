@@ -1,0 +1,1 @@
+`include "../scoreboard/simple_spi_scoreboard.sv"
