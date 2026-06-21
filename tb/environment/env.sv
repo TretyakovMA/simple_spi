@@ -12,6 +12,8 @@ class env extends uvm_env;
 	spi_agent              spi_agent_h;
 	wishbone_agent         wishbone_agent_h;
 
+	register_env           register_env_h;
+
     simple_spi_scoreboard  scoreboard_h;
 
     function void build_phase(uvm_phase phase);
@@ -27,7 +29,9 @@ class env extends uvm_env;
 		spi_agent_h      = spi_agent::type_id::create("spi_agent_h", this);
 
         uvm_config_db #(wishbone_agent_config)::set(this, "wishbone_agent_h", "agent_config", env_config_h.wishbone_agent_config_h);
-		wishbone_agent_h      = wishbone_agent::type_id::create("wishbone_agent_h", this);
+		wishbone_agent_h = wishbone_agent::type_id::create("wishbone_agent_h", this);
+
+		register_env_h = register_env::type_id::create("register_env_h", this);
 
     endfunction: build_phase
 
@@ -36,6 +40,12 @@ class env extends uvm_env;
 
 		spi_agent_h.ap.connect(scoreboard_h.spi_imp);
         wishbone_agent_h.ap.connect(scoreboard_h.wb_imp);
+
+		wishbone_agent_h.ap.connect(register_env_h.predictor_h.bus_in);
+		register_env_h.reg_block_h.default_map.set_sequencer(
+			.sequencer(wishbone_agent_h.sequencer_h),
+			.adapter(register_env_h.adapter_h)
+		);
     endfunction: connect_phase
 endclass
 `endif

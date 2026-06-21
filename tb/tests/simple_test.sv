@@ -1,7 +1,7 @@
 `ifndef SIMPLE_TEST
 `define SIMPLE_TEST
 class simple_test extends sequence_base_test #(
-    .SEQUENCE_TYPE(simple_seq),
+    .SEQUENCE_TYPE(configure_spe_seq),
     .SEQUENCER_TYPE(wishbone_sequencer),
     .IS_VIRTUAL_SEQUENCE(0),
     .PARENT_TYPE(base_test)

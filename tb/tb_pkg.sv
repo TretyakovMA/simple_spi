@@ -18,6 +18,8 @@ package tb_pkg;
     `include "include/wishbone_agent_inc.svh"
     `include "include/scoreboard_inc.svh"
     `include "include/environment_inc.svh"
+
+    `include "include/wishbone_sequences_inc.sv"
     `include "include/sequences_inc.svh"
     `include "include/tests_inc.svh"
     

@@ -4,8 +4,8 @@ package reg_models_pkg;
     `include "uvm_macros.svh"
     import uvm_pkg::*;
     
-    // reg - simple_spi_core::SPCR
-    class simple_spi_core__SPCR extends uvm_reg;
+    // reg - simple_spi_regs::SPCR
+    class simple_spi_regs__SPCR extends uvm_reg;
         rand uvm_reg_field SPR;
         rand uvm_reg_field CPHA;
         rand uvm_reg_field CPOL;
@@ -14,7 +14,7 @@ package reg_models_pkg;
         rand uvm_reg_field SPE;
         rand uvm_reg_field SPIE;
 
-        function new(string name = "simple_spi_core__SPCR");
+        function new(string name = "simple_spi_regs__SPCR");
             super.new(name, 8, UVM_NO_COVERAGE);
         endfunction : new
 
@@ -34,10 +34,10 @@ package reg_models_pkg;
             this.SPIE = new("SPIE");
             this.SPIE.configure(this, 1, 7, "RW", 0, 'h0, 1, 1, 0);
         endfunction : build
-    endclass : simple_spi_core__SPCR
+    endclass : simple_spi_regs__SPCR
 
-    // reg - simple_spi_core::SPSR
-    class simple_spi_core__SPSR extends uvm_reg;
+    // reg - simple_spi_regs::SPSR
+    class simple_spi_regs__SPSR extends uvm_reg;
         rand uvm_reg_field RFEMPTY;
         rand uvm_reg_field RFFULL;
         rand uvm_reg_field WFEMPTY;
@@ -46,7 +46,7 @@ package reg_models_pkg;
         rand uvm_reg_field WCOL;
         rand uvm_reg_field SPIF;
 
-        function new(string name = "simple_spi_core__SPSR");
+        function new(string name = "simple_spi_regs__SPSR");
             super.new(name, 8, UVM_NO_COVERAGE);
         endfunction : new
 
@@ -66,13 +66,13 @@ package reg_models_pkg;
             this.SPIF = new("SPIF");
             this.SPIF.configure(this, 1, 7, "RW", 1, 'h0, 1, 1, 0);
         endfunction : build
-    endclass : simple_spi_core__SPSR
+    endclass : simple_spi_regs__SPSR
 
-    // reg - simple_spi_core::SPDR
-    class simple_spi_core__SPDR extends uvm_reg;
+    // reg - simple_spi_regs::SPDR
+    class simple_spi_regs__SPDR extends uvm_reg;
         rand uvm_reg_field DATA;
 
-        function new(string name = "simple_spi_core__SPDR");
+        function new(string name = "simple_spi_regs__SPDR");
             super.new(name, 8, UVM_NO_COVERAGE);
         endfunction : new
 
@@ -80,15 +80,15 @@ package reg_models_pkg;
             this.DATA = new("DATA");
             this.DATA.configure(this, 8, 0, "RW", 1, 'h0, 1, 1, 0);
         endfunction : build
-    endclass : simple_spi_core__SPDR
+    endclass : simple_spi_regs__SPDR
 
-    // reg - simple_spi_core::SPER
-    class simple_spi_core__SPER extends uvm_reg;
+    // reg - simple_spi_regs::SPER
+    class simple_spi_regs__SPER extends uvm_reg;
         rand uvm_reg_field ESPR;
         rand uvm_reg_field Reserved_ext;
         rand uvm_reg_field ICNT;
 
-        function new(string name = "simple_spi_core__SPER");
+        function new(string name = "simple_spi_regs__SPER");
             super.new(name, 8, UVM_NO_COVERAGE);
         endfunction : new
 
@@ -100,16 +100,16 @@ package reg_models_pkg;
             this.ICNT = new("ICNT");
             this.ICNT.configure(this, 2, 6, "RW", 0, 'h0, 1, 1, 0);
         endfunction : build
-    endclass : simple_spi_core__SPER
+    endclass : simple_spi_regs__SPER
 
-    // addrmap - simple_spi_core
-    class simple_spi_core extends uvm_reg_block;
-        rand simple_spi_core__SPCR SPCR;
-        rand simple_spi_core__SPSR SPSR;
-        rand simple_spi_core__SPDR SPDR;
-        rand simple_spi_core__SPER SPER;
+    // addrmap - simple_spi_regs
+    class simple_spi_regs extends uvm_reg_block;
+        rand simple_spi_regs__SPCR SPCR;
+        rand simple_spi_regs__SPSR SPSR;
+        rand simple_spi_regs__SPDR SPDR;
+        rand simple_spi_regs__SPER SPER;
 
-        function new(string name = "simple_spi_core");
+        function new(string name = "simple_spi_regs");
             super.new(name);
         endfunction : new
 
@@ -136,6 +136,6 @@ package reg_models_pkg;
             this.SPER.build();
             this.default_map.add_reg(this.SPER, 'h3);
         endfunction : build
-    endclass : simple_spi_core
+    endclass : simple_spi_regs
 
 endpackage: reg_models_pkg

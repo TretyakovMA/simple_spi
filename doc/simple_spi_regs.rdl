@@ -1,4 +1,4 @@
-addrmap simple_spi_core {
+addrmap simple_spi_regs {
     name = "Simple SPI Core Register Map";
     desc = "Enhanced version of the SPI found on Motorola's M68HC11 CPU";
 
