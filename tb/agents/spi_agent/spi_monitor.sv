@@ -20,14 +20,33 @@ class spi_monitor extends base_monitor #(
 	endtask: _wait_for_reset_assert_
     
     task _wait_for_sampling_event_(); 
-        @(posedge vif.clk iff (vif.rst == 0 && vif.rst == 1));// никогда не выполнится
+        @(posedge vif.sck);
     endtask: _wait_for_sampling_event_
 
+    task measure_divider(spi_transaction tr);
+        int count = 0;
+        @(posedge vif.sck);
+        fork
+            forever begin
+                @(posedge vif.clk);
+                count++;
+            end
+        join_none
+        @(posedge vif.sck);
+        tr.clk_count = count;
+        disable fork;
+    endtask: measure_divider
+
     task _collect_transaction_data_ (spi_transaction tr);
+        fork
+            measure_divider(tr);
+        join_none
+
         for(int i = 0; i < 8; i++) begin
-            tr.tx_data[i] = vif.mosi;
-            tr.rx_data[i] = vif.miso;
-            @(posedge vif.sck);
+            tr.tx_data[7 - i] = vif.mosi;
+            tr.rx_data[7 - i] = vif.miso;
+            if (i != 7)
+                @(posedge vif.sck);
         end
     endtask: _collect_transaction_data_
 

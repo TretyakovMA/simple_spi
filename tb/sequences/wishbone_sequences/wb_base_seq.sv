@@ -27,6 +27,10 @@ class wb_base_seq extends uvm_reg_sequence;
         write_reg(register, status, value);
     endtask: write_random_value
 
+    task configure_spi();
+        write_reg(reg_block_h.SPCR, status, 8'b0101_0000);
+    endtask: configure_spi
+
     task body();
         get_registers();
     endtask: body

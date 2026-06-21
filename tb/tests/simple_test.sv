@@ -1,7 +1,7 @@
 `ifndef SIMPLE_TEST
 `define SIMPLE_TEST
 class simple_test extends sequence_base_test #(
-    .SEQUENCE_TYPE(configure_spe_seq),
+    .SEQUENCE_TYPE(spi_single_write_seq),
     .SEQUENCER_TYPE(wishbone_sequencer),
     .IS_VIRTUAL_SEQUENCE(0),
     .PARENT_TYPE(base_test)
@@ -15,5 +15,9 @@ class simple_test extends sequence_base_test #(
     virtual function string get_sequencer_name();
         return "wishbone_sequencer";
     endfunction: get_sequencer_name
+
+    virtual function int set_drain_time();
+        return 100;
+    endfunction: set_drain_time
 endclass
 `endif

@@ -13,7 +13,7 @@ class spi_transaction extends uvm_sequence_item;
     int            clk_count; //для sck
 
     function string convert2string();
-        return $sformatf("mosi = %0h; miso = %0h", tx_data, rx_data);
+        return $sformatf("mosi = %0b; miso = %0b; clk_count = %0d", tx_data, rx_data, clk_count);
     endfunction: convert2string
 
     function void do_copy(uvm_object rhs);
