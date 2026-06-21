@@ -8,6 +8,8 @@ package tb_pkg;
 
     `include "uvm_base_classes/base_classes_pkg.sv"
 
+    import reg_models_pkg::*;
+
     typedef base_agent_config #(virtual spi_interface)      spi_agent_config;
 	typedef base_agent_config #(virtual wishbone_interface) wishbone_agent_config;
 

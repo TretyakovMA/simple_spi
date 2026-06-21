@@ -17,6 +17,15 @@ class wishbone_transaction extends uvm_sequence_item;
     bit [7:0]      dat_s;
     bit            ack;
 
+    function string convert2string();
+        string s = "-------------------- Input -------------------\n";
+        s = {s, $sformatf("cyc=%b; stb=%b; adr=%0h; we=%b; dat_m=%0h\n", 
+                           cyc, stb, adr, we, dat_m)};
+        s = {s, "-------------------- Output ------------------\n"};
+        s = {s, $sformatf("dat_s=%0h; ack=%b", dat_s, ack)};
+        return s;
+    endfunction: convert2string
+
     function void do_copy(uvm_object rhs);
 		wishbone_transaction copied_tr;
 		

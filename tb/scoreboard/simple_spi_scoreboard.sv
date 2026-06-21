@@ -25,7 +25,7 @@ class simple_spi_scoreboard extends uvm_scoreboard;
     endfunction: write_SPI
 
     function void write_WB(wishbone_transaction t);
-        `uvm_info(get_type_name(), {"get: ", t.convert2string}, UVM_LOW)
+        `uvm_info(get_type_name(), {"get:\n", t.convert2string}, UVM_LOW)
     endfunction: write_WB
 endclass
 `endif

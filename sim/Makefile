@@ -35,6 +35,7 @@ SIM_DIR       := $(PROJECT_DIR)/sim
 TOP_MODULE    ?= simple_spi_tb_top
 DUT_MODULE    ?= simple_spi_top.v
 TB_PKG        ?= tb_pkg.sv
+REGS_PKG      ?= reg_models/reg_models_pkg.sv
 
 UVM_SRC        = $(QUESTASIM_DIR)/verilog_src/uvm-1.2/src
 UVM_DPI        = $(QUESTASIM_DIR)/uvm-1.2/$(DPI_OS_DIR)/uvm_dpi
@@ -59,6 +60,7 @@ pre_compile:
 compile: pre_compile
 	vlog -sv +acc -cover f +incdir+$(UVM_SRC) \
 		$(DUT_DIR)/$(DUT_MODULE) \
+		$(TB_DIR)/$(REGS_PKG) \
 		$(TB_DIR)/$(TB_PKG) \
 		$(TB_DIR)/$(TOP_MODULE).sv \
 		+define+USE_CUSTOM_REPORT_SERVER

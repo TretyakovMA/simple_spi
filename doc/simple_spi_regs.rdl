@@ -1,0 +1,181 @@
+addrmap simple_spi_core {
+    name = "Simple SPI Core Register Map";
+    desc = "Enhanced version of the SPI found on Motorola's M68HC11 CPU";
+
+    addressing       = compact;
+    default regwidth = 8;
+
+    // -------------------------------------------------------------------------
+    // SPCR: Serial Peripheral Control Register (Address: 0x00)
+    // -------------------------------------------------------------------------
+    reg {
+        name = "Serial Peripheral Control Register";
+        desc = "Controls the configuration and operation modes of the SPI core.";
+
+        field {
+            name  = "SPIE";
+            desc  = "Serial Peripheral Interrupt Enable";
+            sw    = rw; 
+            hw    = r;
+            reset = 1'b0;
+        } SPIE[7:7];
+
+        field {
+            name  = "SPE";
+            desc  = "Serial Peripheral Enable";
+            sw    = rw; 
+            hw    = r;
+            reset = 1'b0;
+        } SPE[6:6];
+
+        field {
+            name  = "Reserved";
+            sw    = rw; 
+            hw    = r;
+            reset = 1'b0;
+        } Reserved[5:5];
+
+        field {
+            name  = "MSTR";
+            desc  = "Master Mode Select";
+            sw    = rw; // Возможно RO
+            hw    = r;
+            reset = 1'b1;
+        } MSTR[4:4]; 
+
+        field {
+            name  = "CPOL";
+            desc  = "Clock Polarity";
+            sw    = rw; 
+            hw    = r;
+            reset = 1'b0;
+        } CPOL[3:3];
+
+        field {
+            name  = "CPHA";
+            desc  = "Clock Phase";
+            sw    = rw; 
+            hw    = r;
+            reset = 1'b0;
+        } CPHA[2:2];
+
+        field {
+            name  = "SPR";
+            desc  = "SPI Clock Rate Select";
+            sw    = rw; 
+            hw    = r;
+            reset = 2'b00;
+        } SPR[1:0]; 
+    } SPCR @ 0x00;
+
+    // -------------------------------------------------------------------------
+    // SPSR: Serial Peripheral Status Register (Address: 0x01)
+    // -------------------------------------------------------------------------
+    reg {
+        name = "Serial Peripheral Status Register"; 
+        desc = "Provides interrupt status, collision flag, and FIFO state indications.";
+
+        field {
+            name  = "SPIF";
+            desc  = "Serial Peripheral Interrupt Flag. Write 1 to clear.";
+            sw    = rw; 
+            hw    = w;
+            reset = 1'b0;
+        } SPIF[7:7];
+
+        field {
+            name    = "WCOL";
+            desc    = "Write Collision flag. Write 1 to clear."; 
+            sw      = rw; 
+            onwrite = woclr; // W1C
+            hw      = w;
+            reset   = 1'b0;
+        } WCOL[6:6];
+
+        field {
+            name  = "Reserved";
+            sw    = r; 
+            hw    = w;
+            reset = 2'b00;
+        } Reserved_bits[5:4];
+
+        field {
+            name  = "WFFULL";
+            desc  = "Write FIFO Full";
+            sw    = r; 
+            hw    = w;
+            reset = 1'b0;
+        } WFFULL[3:3];
+
+        field {
+            name  = "WFEMPTY";
+            desc  = "Write FIFO Empty";
+            sw    = r; 
+            hw    = w;
+            reset = 1'b1;
+        } WFEMPTY[2:2]; 
+
+        field {
+            name  = "RFFULL";
+            desc  = "Read FIFO Full"; 
+            sw    = r; 
+            hw    = w;
+            reset = 1'b0;
+        } RFFULL[1:1];
+
+        field {
+            name  = "RFEMPTY";
+            desc  = "Read FIFO Empty"; 
+            sw    = r; 
+            hw    = w;
+            reset = 1'b1;
+        } RFEMPTY[0:0]; 
+    } SPSR @ 0x01;
+
+    // -------------------------------------------------------------------------
+    // SPDR: Serial Peripheral Data Register (Address: 0x02)
+    // -------------------------------------------------------------------------
+    reg {
+        name = "Serial Peripheral Data Register"; 
+        desc = "8-bit Read/Write Data Register (Unified field implementation).";
+
+        field {
+            name  = "DATA";
+            desc  = "SPI transmit/receive data field";
+            sw    = rw; 
+            hw    = rw;
+            reset = 8'h00; // пусть будет так
+        } DATA[7:0]; 
+    } SPDR @ 0x02;
+
+    // -------------------------------------------------------------------------
+    // SPER: Serial Peripheral Extensions Register (Address: 0x03)
+    // -------------------------------------------------------------------------
+    reg {
+        name = "Serial Peripheral Extensions Register";
+        desc = "Controls interrupt count configurations and extended clock rates.";
+
+        field {
+            name  = "ICNT";
+            desc  = "Interrupt Count bits determining transfer block size"; 
+            sw    = rw; 
+            hw    = r;
+            reset = 2'b00;
+        } ICNT[7:6];
+
+        field {
+            name = "Reserved";
+            sw = rw; 
+            hw = r;
+            reset = 4'h0;
+        } Reserved_ext[5:2];
+
+        field {
+            name  = "ESPR";
+            desc  = "Extended SPI Clock Rate Select";
+            sw    = rw; 
+            hw    = r;
+            reset = 2'b00;
+        } ESPR[1:0];
+    } SPER @ 0x03; 
+};
