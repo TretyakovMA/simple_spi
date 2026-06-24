@@ -1,7 +1,7 @@
-`ifndef WB_BASE_SEQ
-`define WB_BASE_SEQ
-class wb_base_seq extends uvm_reg_sequence;
-    `uvm_object_utils(wb_base_seq)
+`ifndef REG_BASE_SEQ
+`define REG_BASE_SEQ
+class reg_base_seq extends uvm_reg_sequence;
+    `uvm_object_utils(reg_base_seq)
 
     simple_spi_regs  reg_block_h;
 	uvm_status_e     status;
@@ -10,7 +10,7 @@ class wb_base_seq extends uvm_reg_sequence;
     uvm_reg_data_t   value;
     uvm_reg_data_t   mirrored_value;
 
-    function new(string name = "wb_base_seq");
+    function new(string name = "reg_base_seq");
         super.new(name);
     endfunction: new
 
@@ -30,6 +30,10 @@ class wb_base_seq extends uvm_reg_sequence;
     task configure_spi();
         write_reg(reg_block_h.SPCR, status, 8'b0101_0000);
     endtask: configure_spi
+
+    task configure_spi_spie();
+        write_reg(reg_block_h.SPCR, status, 8'b1101_0000);
+    endtask: configure_spi_spie
 
     task body();
         get_registers();

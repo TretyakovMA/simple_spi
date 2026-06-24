@@ -1,1 +1,0 @@
-`include "../tests/simple_test.sv"

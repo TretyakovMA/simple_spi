@@ -1,9 +1,9 @@
 `ifndef SIMPLE_TEST
 `define SIMPLE_TEST
 class simple_test extends sequence_base_test #(
-    .SEQUENCE_TYPE(spi_single_write_seq),
+    .SEQUENCE_TYPE(single_spi_read_vseq),
     .SEQUENCER_TYPE(wishbone_sequencer),
-    .IS_VIRTUAL_SEQUENCE(0),
+    .IS_VIRTUAL_SEQUENCE(1),
     .PARENT_TYPE(base_test)
 );
     `uvm_component_utils(simple_test)

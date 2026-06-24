@@ -13,15 +13,39 @@ package tb_pkg;
     typedef base_agent_config #(virtual spi_interface)      spi_agent_config;
 	typedef base_agent_config #(virtual wishbone_interface) wishbone_agent_config;
 
-    `include "include/items_inc.svh"
-    `include "include/spi_agent_inc.svh"
-    `include "include/wishbone_agent_inc.svh"
-    `include "include/scoreboard_inc.svh"
-    `include "include/environment_inc.svh"
+    // Items
+    `include "items/spi_transaction.sv"
+    `include "items/wishbone_transaction.sv"
 
-    `include "include/wishbone_sequences_inc.sv"
-    `include "include/sequences_inc.svh"
-    `include "include/tests_inc.svh"
+    // Agents
+    `include "agents/spi_agent/spi_driver.sv"
+    `include "agents/spi_agent/spi_monitor.sv"
+    `include "agents/spi_agent/spi_agent.sv"
+
+    `include "agents/wishbone_agent/wishbone_driver.sv"
+    `include "agents/wishbone_agent/wishbone_monitor.sv"
+    `include "agents/wishbone_agent/wishbone_agent.sv"
+    `include "agents/wishbone_agent/register_adapter.sv"
+
+    // Scoreboard
+    `include "scoreboard/simple_spi_scoreboard.sv"
+
+    // Environment
+    `include "environment/sequence_base_test.sv"
+    `include "environment/register_env.sv"
+    `include "environment/env_config.sv"
+    `include "environment/env.sv"
+    `include "environment/base_test.sv"
+
+    // Sequences
+    `include "sequences/spi_slave_response_seq.sv"
+    `include "sequences/reg_base_seq.sv"
+    `include "sequences/reg_write_seq.sv"
+    `include "sequences/reg_read_seq.sv"
+    `include "sequences/single_spi_read_vseq.sv"
+
+    // Tests
+    `include "tests/simple_test.sv"
     
 endpackage
 `endif

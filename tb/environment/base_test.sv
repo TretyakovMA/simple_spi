@@ -80,7 +80,7 @@ virtual class base_test extends uvm_test;
 
 		// Установка максимального времени симуляции
 		// (если симуляция дойдет до 1 миллисекунды, то она завершится)
-		uvm_top.set_timeout(10**9);
+		uvm_top.set_timeout(10**4);
 
 		// На всякий случай выводится топология проекта
 		uvm_top.print_topology();

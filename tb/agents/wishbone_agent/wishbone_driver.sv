@@ -27,6 +27,7 @@ class wishbone_driver extends base_driver #(
     endtask: _reset_
     
     task _drive_transaction_(wishbone_transaction tr);
+        @(posedge vif.clk);
         vif.cyc   <= tr.cyc;
         vif.stb   <= tr.stb;
         vif.adr   <= tr.adr;
